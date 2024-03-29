@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 
 import CognitoProvider from "next-auth/providers/cognito";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CognitoProvider({
       clientId: process.env.NEXT_PUBLIC_APP_CLIENT_ID as string,

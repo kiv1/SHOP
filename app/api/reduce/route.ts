@@ -1,8 +1,18 @@
-import { getServerSession } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import CognitoProvider from "next-auth/providers/cognito";
+
 export async function POST(req: Request) {
   try {
+    const authOptions: NextAuthOptions = {
+      providers: [
+        CognitoProvider({
+          clientId: process.env.NEXT_PUBLIC_APP_CLIENT_ID as string,
+          clientSecret: process.env.NEXT_PUBLIC_APP_CLIENT_SECRET as string,
+          issuer: process.env.NEXT_PUBLIC_COGNITO_DOMAIN as string,
+        }),
+      ],
+    };
     const session = await getServerSession(authOptions);
     if (session) {
       const item = await req.json();
