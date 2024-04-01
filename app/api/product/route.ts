@@ -3,6 +3,7 @@ export async function GET(req: Request) {
   try {
     const allItems = await fetch(
       `${process.env.BACKEND_URL}/api/get-all-products`,
+      { next: { revalidate: 10 } },
     )
       .then((res) => res.json())
       .catch((e) => console.log(e));
