@@ -15,6 +15,7 @@ export default function Shop({ session }: { session: Session | null }) {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 10 },
     });
     let data = await result.json();
     setValue(data.allItems);
